@@ -1008,7 +1008,7 @@ const struct file_operations f2fs_dir_operations = {
 
 static int f2fs_d_revalidate(struct dentry *dentry, unsigned int flags)
 {
-	if ((flags & LOOKUP_CASE_INSENSITIVE) && !d_inode_rcu(dentry))
+	if (flags && !d_inode_rcu(dentry))
 		return 0;
 	return 1;
 }
@@ -1023,7 +1023,7 @@ static int f2fs_fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
 	if (flags & LOOKUP_RCU)
 		return -ECHILD;
 
-	if ((flags & LOOKUP_CASE_INSENSITIVE) && !dentry->d_inode)
+	if (flags && !dentry->d_inode)
 		return 0;
 
 	/*
