@@ -1,0 +1,69 @@
+comment "Huawei Sensor hi3660"
+
+source "drivers/media/huawei/camera/sensor/vcm/Kconfig"
+source "drivers/media/huawei/camera/sensor/flash/Kconfig"
+source "drivers/media/huawei/camera/sensor/ois/Kconfig"
+
+config HUAWEI_CAMERA_USE_IMX230
+	bool "imx230"
+    default y
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_IMX298
+	bool "imx298"
+    default y
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_IMX179
+	bool "imx179"
+    default y
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_IMX179_CMB
+	bool "imx179_cmb"
+    default n
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_IMX286DUAL
+	bool "imx286dual"
+    default y
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_IMX286DUAL_CMB
+	bool "imx286dual_cmb"
+    default n
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_OV8865
+	bool "ov8865"
+    default y
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_IMX286HYBIRD
+	bool "imx286hybird"
+    default y
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_IMX386HYBIRD
+	bool "imx386hybird"
+    default y
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_IMX219
+	bool "imx219"
+    default n
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_IMX219_VIC
+	bool "imx219_vic"
+    default y
+	depends on HUAWEI_CAMERA
+
+config HUAWEI_CAMERA_USE_HI843
+	bool "hi843"
+    default n
+
+config HUAWEI_CAMERA_USE_OV2281
+	bool "ov2281"
+    default y
+	depends on HUAWEI_CAMERA

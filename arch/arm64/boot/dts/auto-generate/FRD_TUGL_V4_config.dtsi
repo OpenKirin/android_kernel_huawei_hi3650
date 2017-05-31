@@ -1,0 +1,23 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "FRD_TUGL_V2_config.dtsi"
+/ {
+	hisi,boardid = <3 9 1 1>;
+	hisi,boardname = "FRD_TUGL_V4";
+	hisi,modem_id = <0x3C610800>;
+
+	amba {
+		i2c4: i2c@FDF0D000 {
+			pn547_nfc:nfc@28 {
+				pn547,dload = <&gpio27 0 0>;
+				status = "ok";
+			};
+		};
+	};
+};

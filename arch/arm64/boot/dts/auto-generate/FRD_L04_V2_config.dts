@@ -1,0 +1,56 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/include/ "fastboot.dtsi"
+/include/ "FRD_L09_V2_config.dtsi"
+/include/ "FRD_L04_V2_pin.dtsi"
+/include/ "FRD_L04_V2_hi6402_pin.dtsi"
+/include/ "FRD_L04_V2_modem_pin.dtsi"
+/ {
+	hisi,boardid = <3 9 4 0>;
+	hisi,boardname = "FRD_L04_V2";
+	hisi,modem_id = <0x3C611400>;
+	hisi,product_name = "FRD-L04";
+
+	amba {
+		i2c4: i2c@FDF0D000 {
+			pn547_nfc:nfc@28 {
+				pinctrl-0 = <>;
+				pinctrl-1 = <>;
+				nfc_card_num = <0x1>;
+				nfc_chip_type = "pn548";
+				/* nfc svdd switch:pull up for eSE, pull down for sim1 */
+				nfc_svdd_sw = "false";
+				nfc_nxp_name = "libnfc_nxp_frd_L09.conf";
+				status = "ok";
+			};
+		};
+	};
+	codec_controller: codec_controller@e82b9000 {
+		hi64xx_irq: hi64xx_irq@0 {
+			hi6402_codec: hi6402_codec@0{
+				hisilicon,hac_gpio = <29>;
+				status = "ok";
+			};
+		};
+	};
+	nfc_exist {
+		nfc_exist_flag = "1";
+		nfc_ese_spi_det = "0";
+		status = "ok";
+	};
+	devcheck: devcheck {
+		nfc = <1>;
+	};
+
+	antenna_fpga{
+		antenna_fpga,pre-image-filename = "FRD-L04-V2.bin";
+	};
+
+};

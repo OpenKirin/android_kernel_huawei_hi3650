@@ -1,0 +1,12 @@
+menu "MDDRC - For kernel code protection"
+
+config HISI_DDRC_KERNEL_CODE_PROTECTION
+	bool "For kernel code protection"
+	default n
+	help
+	  This module is for kernel code protection within ddrc mechanism.
+	  Include:
+	  kernel code,
+	  kernel ro data,
+	  etc ...
+endmenu

@@ -1,0 +1,66 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/include/ "fastboot.dtsi"
+/include/ "FRD_L09_V3_config.dtsi"
+/include/ "FRD_L09_V4_pin.dtsi"
+/include/ "FRD_L09_V4_hi6402_pin.dtsi"
+/include/ "FRD_L09_V4_modem_pin.dtsi"
+/ {
+	hisi,boardid = <3 9 5 2>;
+	hisi,boardname = "FRD_L09_V4";
+	hisi,modem_id = <0x3C610C00>;
+
+	amba {
+		i2c4: i2c@FDF0D000 {
+			pn547_nfc:nfc@28 {
+				pinctrl-0 = <>;
+				pinctrl-1 = <>;
+				nfc_card_num = <0x1>;
+				nfc_chip_type = "pn548";
+				/* nfc svdd switch:pull up for eSE, pull down for sim1 */
+				nfc_svdd_sw = "false";
+				pn547,dload = <&gpio27 0 0>;
+				nfc_nxp_name = "libnfc_nxp_frd_L09.conf";
+				status = "ok";
+			};
+		};
+	};
+
+	nfc_exist {
+		nfc_exist_flag = "1";
+		nfc_ese_spi_det = "0";
+		status = "ok";
+	};
+	devcheck: devcheck {
+		nfc = <1>;
+	};
+	antenna_fpga{
+		status = "disabled";
+	};
+
+	huawei,imx286d_knt{
+			compatible = "huawei,imx286d_knt";
+			huawei,ldo-names = "dvdd", "dvdd2", "vcm", "vcm2";
+			gpios = <&gpio2 2 0 &gpio16 6 0 &gpio28 1 0>;
+			huawei,gpio-ctrl-types = "reset", "reset2", "mispdcdc-en";
+	};
+
+	huawei,imx179d_knt{
+			compatible = "huawei,imx179d_knt";
+			vcm-supply = <&ldo25>;
+			huawei,ldo-names = "vcm";
+	};
+
+	huawei,ov8865_knt{
+			compatible = "huawei,ov8865_knt";
+			vcm-supply = <&ldo25>;
+			huawei,ldo-names = "vcm";
+	};
+};

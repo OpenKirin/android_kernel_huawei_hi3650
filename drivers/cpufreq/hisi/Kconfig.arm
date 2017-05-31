@@ -1,0 +1,18 @@
+config ARCH_HISI_MAXFREQ
+	bool "Hisilicon platform cpu max freq recognition"
+	depends on PM_OPP
+	default n
+	help
+	  Hisilicon platform cpu max freq recognition.
+
+config HISI_ENABLE_GET_VAL
+	bool "Hisilicon get cpufreq param"
+	default n
+	help
+	  Hisilicon get cpufreq param.
+
+config HISI_BIG_MAXFREQ_HOTPLUG
+	tristate "Specific flow for Hisilicon Platform CPUfreq driver"
+	depends on ARM_BIG_LITTLE_CPUFREQ && HOTPLUG_CPU
+	help
+	  This add Hotplug Flow in CPUfreq for Hisilicon Big-little Platform with boost freq.

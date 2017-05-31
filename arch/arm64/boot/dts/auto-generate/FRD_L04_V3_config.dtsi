@@ -1,0 +1,46 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "FRD_L04_V2_config.dtsi"
+/ {
+	hisi,boardid = <3 9 4 1>;
+	hisi,boardname = "FRD_L04_V3";
+
+	huawei,imx286d_knt{
+		compatible = "huawei,imx286OverseaV3_knt";
+		huawei,ldo-names = "dvdd", "vcm", "vcm2";
+		gpios = <&gpio2 2 0 &gpio16 6 0>;
+		huawei,gpio-ctrl-types = "reset", "reset2";
+	};
+
+	antenna_fpga{
+		antenna_fpga,pre-image-filename = "FRD-L04-V3.bin";
+	};
+
+	bcm_wifi{
+		wifi_nvram_name = "/vendor/firmware/nvram43455_hw_frd_l04.txt";
+	};
+        reserved-memory {
+                  drm-misc-mem{
+                          status = "ok";
+                  };
+                  hisi_cma {
+                          status = "ok";
+                  };
+          };
+
+         hisi,ion {
+                  heap_carveout_drm_misc@14 {
+                          status = "ok";
+                  };
+
+                  heap_sec_drm@20 {
+                          status = "ok";
+                  };
+               };
+};

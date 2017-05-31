@@ -1,0 +1,106 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/include/ "fastboot.dtsi"
+/include/ "FRD_TUGL_V2_config.dtsi"
+/include/ "FRD_L09_V2_pin.dtsi"
+/include/ "FRD_L09_V2_modem_pin.dtsi"
+/include/ "FRD_L09_V2_hi6402_pin.dtsi"
+/include/ "huawei_irda.dtsi"
+/ {
+	hisi,boardid = <3 9 5 0>;
+	hisi,boardname = "FRD_L09_V2";
+	hisi,modem_id = <0x3C611000>;
+	hisi,product_name = "FRD-L09";
+
+	amba {
+		i2c4: i2c@FDF0D000 {
+			pn547_nfc:nfc@28 {
+				status = "disabled";
+			};
+		};
+	};
+	nfc_exist {
+		nfc_exist_flag = "0";
+		status = "disabled";
+	};
+	devcheck: devcheck {
+		nfc = <0>;
+	};
+	ese_config {
+		status = "disabled";
+	};
+
+	huawei,imx286d_knt{
+		compatible = "huawei,imx286dOversea_knt";
+		huawei,ldo-names = "vcm", "vcm2";
+	};
+	huawei,imx179d_knt{
+		compatible = "huawei,imx179Oversea_knt";
+		dvdd2-supply = <&ldo32>;
+		vcm-supply = <&ldo25>;
+		huawei,ldo-names = "dvdd2", "vcm";
+	};
+	huawei,ov8865_knt{
+		compatible = "huawei,ov8865Oversea_knt";
+		dvdd2-supply = <&ldo32>;
+		vcm-supply = <&ldo25>;
+		huawei,ldo-names = "dvdd2", "vcm";
+	};
+
+	antenna_fpga{
+		compatible = "antenna_fpga";
+		antenna_fpga,gpio-reset= <&gpio11 1 0>;
+		antenna_fpga,gpio-cdone = <&gpio3 6 0>;
+		antenna_fpga,gpio-cs = <&gpio2 3 0>;
+		antenna_fpga,pre-image-filename = "FRD-L09-V2.bin";
+		antenna_fpga,gpio-exception = <&gpio26 4 0>;
+		antenna_fpga,power-disable = <1>;
+		status = "ok";
+	};
+
+	amba{
+		spi0: spi@ffd70000{
+			num-cs = <0x5>;
+			fpga_spi: fpga_spi@4 {
+				compatible = "fpga_spi";
+				spi-max-frequency = <0x989680>;
+				reg = <4>;
+				pl022,com-mode = <2>;
+				pl022,interface = <0>;
+				pl022,rx-level-trig = <3>;
+				pl022,tx-level-trig = <3>;
+				pl022,ctrl-len = <7>;
+				pl022,wait-state = <0>;
+				pl022,duplex = <0>;
+				pl022,slave-tx-disable = <0>;
+			};
+		};
+	};
+
+	irda_maxim:irda_maxim {
+		ldo_power-supply = <&ldo19>;
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio067_cfg_func &gpio068_cfg_func
+				&gpio067_pmx_func &gpio068_pmx_func>;
+		pinctrl-1 = <&gpio067_cfg_idle &gpio068_cfg_idle
+				&gpio067_pmx_idle &gpio068_pmx_idle>;
+		irda,power_type = <1>;
+		status = "ok";
+	};
+	pmic@FFF34000 {
+		ldo19: ldo@7C {
+			/delete-property/ regulator-always-on;
+		};
+	};
+
+	hisi_flp:flp {
+		hisi,flp_switch = "off";    /* on/off */
+	};
+};

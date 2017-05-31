@@ -1,0 +1,90 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/include/ "fastboot.dtsi"
+/include/ "FRD_TUCL_V0_config.dtsi"
+/include/ "FRD_TUCL_V2_pin.dtsi"
+/include/ "FRD_TUCL_V2_hi6402_pin.dtsi"
+/include/ "FRD_TUCL_V2_modem_pin.dtsi"
+/ {
+	hisi,boardid = <3 9 0 1>;
+	hisi,boardname = "FRD_TUCL_V2";
+	panel_lcd_lg_R69006_5P2{
+		pinctrl-0 = <&gpio002_hi6402_pinctrl_func &gpio021_pmx_func &gpio021_cfg_func &gpio131_cfg_func &gpio079_cfg_func &gpio020_cfg_func &gpio126_cfg_func &gpio120_cfg_func &gpio053_cfg_func>;
+		pinctrl-1 = <&gpio002_hi6402_pinctrl_idle &gpio021_pmx_idle &gpio021_cfg_idle &gpio131_cfg_idle &gpio079_cfg_idle &gpio020_cfg_idle &gpio126_cfg_idle &gpio120_cfg_idle &gpio053_cfg_idle>;
+		gpio_nums = <120 126 53 20 21 79 131>;
+		gpios = <&gpio15 0 0>, <&gpio15 6 0>,  <&gpio6 5 0>, <&gpio2 4 0>, <&gpio9 7 0>, <&gpio16 3 0>;
+	};
+
+	panel_lcd_sharp_NT35695_5P2{
+		pinctrl-0 = <&gpio002_hi6402_pinctrl_func &gpio021_pmx_func &gpio021_cfg_func &gpio131_cfg_func &gpio079_cfg_func &gpio020_cfg_func &gpio126_cfg_func &gpio120_cfg_func &gpio053_cfg_func>;
+		pinctrl-1 = <&gpio002_hi6402_pinctrl_idle &gpio021_pmx_idle &gpio021_cfg_idle &gpio131_cfg_idle &gpio079_cfg_idle &gpio020_cfg_idle &gpio126_cfg_idle &gpio120_cfg_idle &gpio053_cfg_idle>;
+		gpio_nums = <120 126 53 20 21 79 131>;
+		gpios = <&gpio15 0 0>, <&gpio15 6 0>,  <&gpio6 5 0>, <&gpio2 4 0>, <&gpio9 7 0>, <&gpio16 3 0>;
+	};
+
+	panel_lcd_jdi_R63452_5P2{
+		pinctrl-0 = <&gpio002_hi6402_pinctrl_func &gpio021_pmx_func &gpio021_cfg_func &gpio131_cfg_func &gpio079_cfg_func &gpio020_cfg_func &gpio126_cfg_func &gpio120_cfg_func &gpio053_cfg_func>;
+		pinctrl-1 = <&gpio002_hi6402_pinctrl_idle &gpio021_pmx_idle &gpio021_cfg_idle &gpio131_cfg_idle &gpio079_cfg_idle &gpio020_cfg_idle &gpio126_cfg_idle &gpio120_cfg_idle &gpio053_cfg_idle>;
+		gpio_nums = <120 126 53 20 21 79 131>;
+		gpios = <&gpio15 0 0>, <&gpio15 6 0>,  <&gpio6 5 0>, <&gpio2 4 0>, <&gpio9 7 0>, <&gpio16 3 0>;
+	};
+	huawei,lcd_panel {
+		gpio_cfg_addr = <0xE896C93c 0xE896CA0C>;
+		gpio_id = <79 131>;
+	};
+	amba{
+		spi0: spi@ffd70000{
+			depth_isp: depth_isp@0 {
+				/*chip-type 1:dummy  2:Al6045  4:Al6610*/
+				depth_isp,chip_type = <4>;
+			};
+		};
+	};
+	huawei,vl53l0_knt {
+		   gpios = <&gpio31 1 0>;
+		   huawei,gpio-ctrl-types = "xshut";
+		   pinctrl-names = "default", "idle";
+		   pinctrl-0 = <&gpio025_hi6402_pinctrl_func>;
+		   pinctrl-1 = <&gpio025_hi6402_pinctrl_idle>;
+	};
+
+	bcm_wifi {
+		wlan_enable,gpio_vio = <&gpio31 5 0>;
+		pinctrl-0 = <&gpio061_cfg_func &gpio062_cfg_func
+				&gpio063_cfg_func &gpio064_cfg_func
+				&gpio065_cfg_func &gpio066_cfg_func
+				&gpio061_pmx_func &gpio062_pmx_func
+				&gpio063_pmx_func &gpio064_pmx_func
+				&gpio065_pmx_func &gpio066_pmx_func>;
+		pinctrl-1 = <&gpio061_cfg_idle &gpio062_cfg_idle
+				&gpio063_cfg_idle &gpio064_cfg_idle
+				&gpio065_cfg_idle &gpio066_cfg_idle
+				&gpio061_pmx_idle &gpio062_pmx_idle
+				&gpio063_pmx_idle &gpio064_pmx_idle
+				&gpio065_pmx_idle &gpio066_pmx_idle>;
+		ext_type;
+	};
+
+	bluetooth_power:bluetooth_power{
+		huawei,vio_en = <253>;
+	};
+
+	antenna_boardid_detect:antenna_boardid_detect{
+		compatible = "huawei,antenna_boardid_detect";
+		gpio1 = <&gpio28 0 0>;
+		gpio2 = <&gpio31 6 0>;
+		temp_gpio = "gpio1", "gpio2";
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio000_hi6402_pinctrl_func &gpio030_hi6402_pinctrl_func>;
+		pinctrl-1 = <&gpio000_hi6402_pinctrl_idle &gpio030_hi6402_pinctrl_idle>;
+		status = "ok";
+	};
+
+};

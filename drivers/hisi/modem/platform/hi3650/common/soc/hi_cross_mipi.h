@@ -1,0 +1,21 @@
+#ifndef __HI_CROSS_MIPI_H__
+#define __HI_CROSS_MIPI_H__ 
+#ifdef __cplusplus
+extern "C" {
+#endif
+#define CROSS_MIPI_PHONE 
+#define CROSS_MIPI_HI3650 
+#define CROSS_MIPI_FORCE_OUTPUT_OFFSET (0x14)
+#define CROSS_MIPI_OUTPUT_VALUE_OFFSET (0Xfb0)
+#define CROSS_MIPI_MASK_OFFSET (0x1060)
+#define CROSS_MIPI_M0_LINE_P_MASK_OFFSET (0x1064)
+#define CROSS_MIPI_M0_LINE_S_MASK_OFFSET (0x1068)
+#define CROSS_MIPI_M1_LINE_MASK_OFFSET (0x106C)
+#define CROSS_MIPI_EN_OFFSET (0x0)
+#define CROSS_MIPI_REQ_EN_OFFSET (0x4)
+#define CROSS_MIPI_MIPI_MEM_OFFSET (0x0)
+#define CROSS_MIPI_GPIO_MEM_OFFSET (0x1800)
+#ifdef __cplusplus
+}
+#endif
+#endif
