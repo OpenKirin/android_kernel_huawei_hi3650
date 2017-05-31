@@ -33,21 +33,6 @@ bool bfmr_is_enabled(void)
     return (0 == g_hw_bfm_enable) ? (false) : (true);
 }
 
-static int __init early_parse_HW_BFM_MODE_cmdline(char *p)
-{
-	if (p) {
-		if (!strncmp(p, "1", strlen("1"))) {
-                   g_hw_bfm_enable = 1;
-          }else {
-			g_hw_bfm_enable = 0;
-            }
-
-		pr_debug("g_hw_bfm_enable is %d\n", g_hw_bfm_enable);
-	}
-	return 0;
-}
-early_param("hw_bfm_enable", early_parse_HW_BFM_MODE_cmdline);
-
 struct delayed_work check_bootup_timeout_work;
 
 static void check_bootup_timeout_work_func(struct work_struct *work)
