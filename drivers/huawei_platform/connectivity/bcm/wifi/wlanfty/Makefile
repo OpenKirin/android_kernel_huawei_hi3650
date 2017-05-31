@@ -1,0 +1,1 @@
+obj-y += wlanfty.o

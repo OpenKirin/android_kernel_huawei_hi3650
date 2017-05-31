@@ -1,0 +1,7 @@
+#ifndef __HI_BBP_INT_H__
+#define __HI_BBP_INT_H__ 
+#define HI_BBP_INT_ARM_INT_MSK_OFFSET (0x30)
+#define HI_BBP_INT_ARM_INT_CLS_OFFSET (0x34)
+#define HI_BBP_TSTU_PUB_INT_CLEAR_OFFSET (0xA8)
+#define HI_BBP_TSTU_PUB_INT_MSK_OFFSET (0xA0)
+#endif

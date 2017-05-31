@@ -1,0 +1,7 @@
+#ifndef __HI_BBP_CTU_H__
+#define __HI_BBP_CTU_H__ 
+#define HI_BBP_CTU_MEAS_FLAG_L_RD_OFFSET (0x640)
+#define HI_BBP_CTU_MEAS_FLAG_W_RD_OFFSET (0x644)
+#define HI_BBP_CTU_MEAS_FLAG_T_RD_OFFSET (0x648)
+#define HI_BBP_CTU_MEAS_FLAG_GM_RD_OFFSET (0x64C)
+#endif

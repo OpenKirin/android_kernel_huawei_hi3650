@@ -1,0 +1,55 @@
+menu "TEE OS"
+
+config SECURE_EXTENSION
+	bool "security extension support"
+	default n
+	help
+	  Include Security Extension.
+
+config  TZDRIVER
+	tristate "Secure Execution Communicator driver"
+	default n
+	depends on SECURE_EXTENSION
+	help
+	  Provides a communication interface between userspace and
+	  TrustZone Operating Environment.
+
+config TEELOG
+	tristate "Secure Execution Log driver"
+	default n
+	depends on TZDRIVER
+	help
+	  TEEOS log
+
+config TEE_TUI
+	tristate "Trusted user interface driver"
+	default n
+	depends on TZDRIVER
+	help
+	  Trusted user interface diver
+
+config TEE_TUI_HI3650
+	tristate "Trusted user interface driver for 3650"
+	default n
+	depends on TZDRIVER
+	help
+	  Trusted user interface diver
+
+config TEE_RANDOM
+	tristate "TEE based random driver"
+	default n
+	depends on TZDRIVER
+	help
+	  TEE based random diver
+
+config HISI_SPI_SMC
+	bool "hisi spi smc"
+	default n
+
+config HISI_SPI1_SMC
+	bool "hisi spi1 smc"
+	default n
+
+source drivers/hisi/tzdriver/libhwsecurec/Kconfig
+
+endmenu

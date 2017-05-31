@@ -1,0 +1,15 @@
+menuconfig OTGID
+	tristate "OTGID class support"
+	help
+	  Say Y here to enable switch class support. This allows
+	  monitoring switches by userspace via sysfs and uevent.
+
+if OTGID
+
+config OTG_GPIO_ID
+	tristate "GPIOID support"
+	depends on GPIOLIB
+	help
+	  Say Y here to enable GPIO based switch support.
+endif # OTGID
+

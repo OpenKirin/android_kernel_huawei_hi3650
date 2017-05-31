@@ -1,0 +1,5 @@
+config AUDIO_DMD
+	tristate "asd dmd client"
+	default n
+	help
+		Say Y to enable audio DMD driver support

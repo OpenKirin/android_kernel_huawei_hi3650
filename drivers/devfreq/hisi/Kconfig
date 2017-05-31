@@ -1,0 +1,42 @@
+config HISI_DEVFREQ
+    tristate "Hisilicon DEVFREQ Driver"
+    depends on ARCH_HISI && PM_DEVFREQ
+    select PM_OPP
+    help
+      This enables the hisilicon DDRfreq driver.
+
+config HISI_DDR_DEVFREQ
+    tristate "Hisilicon DDR DEVFREQ Driver"
+    depends on ARCH_HISI && PM_DEVFREQ
+    select PM_OPP
+    select DEVFREQ_GOV_PM_QOS
+    select HISI_DEVFREQ
+    help
+      This enables the hisilicon DDRfreq driver.
+
+config DEVFREQ_GOV_PM_QOS
+	bool "PM QOS"
+	help
+	  Sets the frequency based on pm_qos throughput constraints.
+
+config DEVFREQ_GOV_MALI_ONDEMAND
+    tristate "Hisilicon GPU DEVFREQ Driver"
+    depends on ARCH_HISI && PM_DEVFREQ
+    select PM_OPP
+    select DEVFREQ_GOV_PM_QOS
+    select HISI_DEVFREQ
+    help
+      This enables the hisilicon MALI GPU driver.
+
+config HISI_DDR_CHINTLV
+    bool "Hisilicon ddr devfreq chintlv"
+    default n
+    help
+      Deliver register address of GLB_ADDR_INTLV to ATF.
+
+config HISI_DDR_DEVFREQ_DEBUGFS
+	bool "Hisilicon ddr devfreq debugfs"
+	depends on HI3650_DDR_DEVFREQ && DEBUG_FS
+	default n
+	help
+	  This is a testing driver for HISI ddr devfreq function.

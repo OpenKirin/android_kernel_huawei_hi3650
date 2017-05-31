@@ -1,0 +1,9 @@
+menu "Huawei Big Data Analysis Tools Support"
+
+config HUAWEI_BDAT
+	tristate "Huawei Big Data Analysis Tools support"
+	default n
+	---help---
+	  This driver provides BDAT feature
+
+endmenu

@@ -1,0 +1,9 @@
+#HUAWEI IO TRACING
+
+
+config HUAWEI_IO_TRACING
+        tristate "huawei io tracing"
+        default n
+        depends on TRACING && TASK_XACCT && TASK_IO_ACCOUNTING
+        help
+            trace the io state for debugging

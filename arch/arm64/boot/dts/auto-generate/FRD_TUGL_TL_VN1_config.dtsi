@@ -1,0 +1,15 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "FRD_TUGL_DL_VN1_config.dtsi"
+/ {
+	hisi,boardid = <3 9 2 1>;
+	hisi,boardname = "FRD_TUGL_TL_VN1";
+	hisi,modem_id = <0x3C612400>;
+
+};

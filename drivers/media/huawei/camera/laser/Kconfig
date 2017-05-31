@@ -1,0 +1,42 @@
+if HISI_CAMERA_LASER
+
+menu "st camera laser driver support"
+
+config HISI_CAMERA_VL53L0
+    tristate "vl53l0 camera laser driver"
+    depends on HISI_CAMERA_LASER
+    default n
+    ---help---
+        vl53l0 camera laser driver
+
+config HISI_CAMERA_VL53L0_ML
+    tristate "vl53l0_ml camera laser driver"
+    depends on HISI_CAMERA_LASER
+    default n
+    ---help---
+        vl53l0 camera laser driver for MHA/LON
+
+config HISI_CAMERA_VL53L0_KNT
+    tristate "vl53l0_knt camera laser driver"
+    depends on HISI_CAMERA_LASER
+    default n
+    ---help---
+        vl53l0 camera laser driver for KNIGHT
+
+config HISI_CAMERA_VL53L0_GAL
+    tristate "vl53l0_gal camera laser driver"
+    depends on HISI_CAMERA_LASER
+    default n
+    ---help---
+        vl53l0 camera laser driver for GAL
+
+config HISI_CAMERA_VL53L0_CMB
+    tristate "vl53l0_cmb camera laser driver"
+    depends on HISI_CAMERA_LASER
+    default n
+    ---help---
+        vl53l0 camera laser driver for CMB
+
+endmenu
+
+endif

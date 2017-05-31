@@ -1,0 +1,36 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "FRD_TUCL_VN2_config.dtsi"
+/ {
+	hisi,boardid = <3 9 0 9>;
+	hisi,boardname = "FRD_TUCL_LV";
+	amba{
+		i2c4: i2c@FDF0D000 {
+			max98925_smartpa_l: smartpa@31 {
+				status = "disabled";
+			};
+
+			tfa9895:tfa9895@34 {
+				compatible = "huawei,tfa9895";
+				reg = <0x34>;
+				status = "ok";
+			};
+		};
+	};
+
+	maxim_ioctl {
+		status = "disabled";
+	};
+
+	audio_hw_config {
+		product_name = "FRD-NXP";
+		spk_pa_name = "tfa9895";
+		codec_dsp_algo = "mad";
+	};
+};

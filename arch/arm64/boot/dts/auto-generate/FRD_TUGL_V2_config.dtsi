@@ -1,0 +1,26 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/include/ "FRD_TUCL_V2_config.dtsi"
+/ {
+	hisi,boardid = <3 9 1 0>;
+	hisi,boardname = "FRD_TUGL_V2";
+	hisi,modem_id = <0x3C610400>;
+	hisi,product_name = "FRD-DL00";
+
+	viacbp82d_power:viacbp82d_power {
+		status = "disabled";
+	};
+	viacbp82d_cbp_spi:viacbp82d_cbp_spi {
+		status = "disabled";
+	};
+	//via modem sdio1
+	dwmmc3: dwmmc3@FF37D000 {
+		status = "disabled";
+	};
+};

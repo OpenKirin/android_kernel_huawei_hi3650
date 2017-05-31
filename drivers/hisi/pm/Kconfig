@@ -1,0 +1,31 @@
+menu "Hisi S/R options"
+
+config HISI_SR
+	bool "support hi3xxx suspend and resume"
+	depends on SUSPEND
+	default n
+	help
+	   support hi3xxx suspend and resume
+
+config HISI_SR_DEBUG
+	bool "hisi suspend-resume debug interface"
+	depends on PM
+	default n
+	help
+	suspend-resume debug for hisi platform
+
+config HISI_SR_DEBUG_SLEEP
+	bool "hisi suspend-resume debug sleep"
+	depends on PM
+	default n
+	help
+	suspend-resume debug sleep for hisi platform
+
+config HISI_SR_SYNC
+	bool "Hisilicon suspend optimization"
+	depends on SUSPEND
+	default n
+	help
+	  Driver for suspend optimization
+
+endmenu

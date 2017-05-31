@@ -1,0 +1,20 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/include/ "fastboot.dtsi"
+/include/ "FRD_TUGL_DL_VN1_config.dtsi"
+/include/ "FRD_TUGL_TL_VN1_pin.dtsi"
+/include/ "FRD_TUGL_TL_VN1_hi6402_pin.dtsi"
+/include/ "FRD_TUGL_TL_VN1_modem_pin.dtsi"
+/ {
+	hisi,boardid = <3 9 2 1>;
+	hisi,boardname = "FRD_TUGL_TL_VN1";
+	hisi,modem_id = <0x3C612400>;
+
+};

@@ -1,0 +1,19 @@
+config CONTEXTHUB
+	bool "Sensor CONTEXTHUB driver"
+	default n
+	help
+	Sensor CONTEXTHUB driver.
+
+config CONTEXTHUB_SHMEM
+	bool "Sensor CONTEXTHUB SHMEM driver"
+	depends on CONTEXTHUB
+	default n
+	help
+	Say yes here if you want to configure contexthub share memory
+
+config CONTEXTHUB_SHELL
+	bool "Sensor CONTEXTHUB SHELL DBG driver"
+	depends on CONTEXTHUB
+	default n
+	help
+	Say yes here if you want to use contexthub shell dbg function

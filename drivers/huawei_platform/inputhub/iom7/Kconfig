@@ -1,0 +1,17 @@
+menuconfig INPUTHUB
+	bool "InputHub feature support"
+	default n
+	help
+	Say yes here to support inputhub feature.
+
+menuconfig IOM3_RECOVERY
+	bool "iom3 recovery feature support"
+	default n
+	help
+	Say yes here to support the cmdline parse
+
+menuconfig CYPRESS_PSOC4000
+	bool "cypress capsense support"
+	default n
+	help
+	Say yes here if you want to configure cypress capsense

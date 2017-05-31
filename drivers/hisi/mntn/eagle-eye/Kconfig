@@ -1,0 +1,8 @@
+config HISI_EAGLE_EYE
+    bool "Hisilicon Eagle Eye Debug Mechanism"
+    depends on LOCKUP_DETECTOR && FUNCTION_TRACER
+    default n
+    help
+    Say 'Y' here if you want to enable kernel to act as a watchdog
+    to detect system exceptions in advance, such as task sched
+    exception, no timely kicking watchdog and e.t.c.

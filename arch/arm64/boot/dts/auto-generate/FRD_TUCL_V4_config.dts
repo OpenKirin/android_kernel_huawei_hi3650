@@ -1,0 +1,39 @@
+/**
+ * Copyright (C) 2014 Hisilicon Ltd.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2 as
+ *  publishhed by the Free Software Foundation.
+ */
+
+/dts-v1/;
+/include/ "fastboot.dtsi"
+/include/ "FRD_TUCL_V2_config.dtsi"
+/include/ "FRD_TUCL_V4_pin.dtsi"
+/include/ "FRD_TUCL_V4_hi6402_pin.dtsi"
+/include/ "FRD_TUCL_V4_modem_pin.dtsi"
+/ {
+	hisi,boardid = <3 9 0 2>;
+	hisi,boardname = "FRD_TUCL_V4";
+	hisi,modem_id = <0x3C611C00>;
+
+	huawei,imx286d_knt{
+		compatible = "huawei,imx286OverseaV3_knt";
+		huawei,ldo-names = "dvdd", "vcm", "vcm2";
+		gpios = <&gpio2 2 0 &gpio16 6 0>;
+		huawei,gpio-ctrl-types = "reset", "reset2";
+	};
+	huawei,imx179d_knt{
+		compatible = "huawei,imx179Oversea_knt";
+		dvdd2-supply = <&ldo32>;
+		vcm-supply = <&ldo25>;
+		huawei,ldo-names = "dvdd2", "vcm";
+	};
+	huawei,ov8865_knt{
+		compatible = "huawei,ov8865Oversea_knt";
+		dvdd2-supply = <&ldo32>;
+		vcm-supply = <&ldo25>;
+		huawei,ldo-names = "dvdd2", "vcm";
+	};
+
+};

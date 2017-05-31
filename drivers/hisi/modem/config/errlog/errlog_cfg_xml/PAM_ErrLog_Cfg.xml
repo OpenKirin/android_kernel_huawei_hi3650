@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<errlog_catalog NAME="PAM" MODE="CDMA">
+    <!-- Warning：xml改动需要重新生成errlog_cfg.c-->
+</errlog_catalog>
