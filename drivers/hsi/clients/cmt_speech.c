@@ -1105,7 +1105,7 @@ static int cs_char_vma_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
 	return 0;
 }
 
-static struct vm_operations_struct cs_char_vm_ops = {
+static const struct vm_operations_struct cs_char_vm_ops = {
 	.fault	= cs_char_vma_fault,
 };
 
