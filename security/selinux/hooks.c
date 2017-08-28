@@ -1996,7 +1996,7 @@ static int selinux_binder_transfer_file(struct task_struct *from,
 {
 	u32 sid = task_sid(to);
 	struct file_security_struct *fsec = file->f_security;
-	struct inode *inode = d_backing_inode(file->f_path.dentry);
+	struct inode *inode = file->f_path.dentry->d_inode;
 	struct inode_security_struct *isec = inode->i_security;
 	struct common_audit_data ad;
 	int rc;
