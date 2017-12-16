@@ -3241,7 +3241,7 @@ static int do_tmpfile(int dfd, struct filename *pathname,
 	if (unlikely(error))
 		goto out;
 	/* we want directory to be writable */
-	error = inode_permission2(path.mnt, nd->inode, MAY_WRITE | MAY_EXEC);
+	error = inode_permission2(nd->path.mnt, nd->inode, MAY_WRITE | MAY_EXEC);
 	if (error)
 		goto out2;
 	dentry = nd->path.dentry;
@@ -3767,7 +3767,7 @@ retry:
 	error = security_path_rmdir(&nd.path, dentry);
 	if (error)
 		goto exit3;
-	error = vfs_rmdir2(path.mnt, nd.path.dentry->d_inode, dentry);
+	error = vfs_rmdir2(nd.path.mnt, nd.path.dentry->d_inode, dentry);
 exit3:
 	dput(dentry);
 exit2:
@@ -3895,7 +3895,7 @@ retry_deleg:
 		error = security_path_unlink(&nd.path, dentry);
 		if (error)
 			goto exit2;
-		error = vfs_unlink2(path.mnt, nd.path.dentry->d_inode, dentry, &delegated_inode);
+		error = vfs_unlink2(nd.path.mnt, nd.path.dentry->d_inode, dentry, &delegated_inode);
 exit2:
 		dput(dentry);
 	}
@@ -4474,7 +4474,7 @@ retry_deleg:
 				     &newnd.path, new_dentry, flags);
 	if (error)
 		goto exit5;
-	error = vfs_rename2(old_path.mnt, old_dir->d_inode, old_dentry,
+	error = vfs_rename2(oldnd.path.mnt, old_dir->d_inode, old_dentry,
 			   new_dir->d_inode, new_dentry,
 			   &delegated_inode, flags);
 exit5:
