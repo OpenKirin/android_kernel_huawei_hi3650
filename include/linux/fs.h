@@ -139,14 +139,6 @@ typedef void (dax_iodone_t)(struct buffer_head *bh_map, int uptodate);
 /* Has write method(s) */
 #define FMODE_CAN_WRITE         ((__force fmode_t)0x40000)
 
-#ifdef CONFIG_SDCARD_FS
-/* File hasn't page cache and can't be mmaped, for stackable filesystem */
-#define FMODE_NOMAPPABLE        ((__force fmode_t)0x80000)
-
-/* File page don't need to be cached, for stackable filesystem's lower file */
-#define FMODE_NOCACHEABLE		((__force fmode_t)0x1000000)
-#endif
-
 /* File was opened by fanotify and shouldn't generate fanotify events */
 #define FMODE_NONOTIFY		((__force fmode_t)0x4000000)
 
@@ -1637,10 +1629,6 @@ struct file_operations {
 	long (*fallocate)(struct file *file, int mode, loff_t offset,
 			  loff_t len);
 	void (*show_fdinfo)(struct seq_file *m, struct file *f);
-#ifdef CONFIG_SDCARD_FS
-	/* get_lower_file is for stackable file system */
-	struct file* (*get_lower_file)(struct file *f);
-#endif
 #ifndef CONFIG_MMU
 	unsigned (*mmap_capabilities)(struct file *);
 #endif

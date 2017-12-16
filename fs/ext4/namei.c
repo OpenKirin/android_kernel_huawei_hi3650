@@ -29,10 +29,6 @@
 #include <linux/time.h>
 #include <linux/fcntl.h>
 #include <linux/stat.h>
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-#include <linux/namei.h>
-#include <linux/dcache.h>
-#endif
 #include <linux/string.h>
 #include <linux/quotaops.h>
 #include <linux/buffer_head.h>
@@ -1161,19 +1157,10 @@ static inline int search_dirblock(struct buffer_head *bh,
 				  struct inode *dir,
 				  const struct qstr *d_name,
 				  unsigned int offset,
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-				  struct ext4_dir_entry_2 ** res_dir,
-				  char *ci_name_buf)
-#else
 				  struct ext4_dir_entry_2 **res_dir)
-#endif
 {
 	return search_dir(bh, bh->b_data, dir->i_sb->s_blocksize, dir,
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-			  d_name, offset, res_dir, ci_name_buf);
-#else
 			  d_name, offset, res_dir);
-#endif
 }
 
 /*
@@ -1275,27 +1262,12 @@ static inline int ext4_match(struct ext4_fname_crypto_ctx *ctx,
 	return (res == 0) ? 1 : 0;
 }
 
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-static inline int ext4_ci_match (int len, const char * const name,
-			      struct ext4_dir_entry_2 * de)
-{
-	if (len != de->name_len)
-		return 0;
-	if (!de->inode)
-		return 0;
-	return !strncasecmp(name, de->name, len);
-}
-#endif
 /*
  * Returns 0 if not found, -1 on failure, and 1 on success
  */
 int search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
 	       struct inode *dir, const struct qstr *d_name,
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-	       unsigned int offset, struct ext4_dir_entry_2 **res_dir,char *ci_name_buf)
-#else
 	       unsigned int offset, struct ext4_dir_entry_2 **res_dir)
-#endif
 {
 	struct ext4_dir_entry_2 * de;
 	char * dlimit;
@@ -1315,47 +1287,6 @@ int search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
 	while ((char *) de < dlimit) {
 		/* this code is executed quadratically often */
 		/* do minimal checking `by hand' */
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-		if ((char *) de + de->name_len <= dlimit) {
-			if (ci_name_buf) {
-				if (ext4_ci_match (namelen, name, de)){
-					/* found a match - just to be sure, do a full check */
-						if (ext4_check_dir_entry(dir, NULL, de, bh,bh->b_data,
-						 bh->b_size, offset)){
-							res = -1;
-							goto return_result;
-						 }
-						*res_dir = de;
-						memcpy(ci_name_buf, de->name, namelen);
-						ci_name_buf[namelen] = '\0';
-						res = 1;
-						goto return_result;
-				
-				}
-			}else {
-				res = ext4_match(ctx, &fname_crypto_str, namelen,
-					 name, de);
-				if (res < 0) {
-					res = -1;
-					goto return_result;
-				}
-				if (res > 0) {
-				/* found a match - just to be sure, do
-				 * a full check */
-					if (ext4_check_dir_entry(dir, NULL, de, bh,
-						bh->b_data,
-						 bh->b_size, offset)) {
-						res = -1;
-						goto return_result;
-					}
-					*res_dir = de;
-					res = 1;
-					goto return_result;
-				}
-
-			}
-		}
-#else
 		if ((char *) de + de->name_len <= dlimit) {
 			res = ext4_match(ctx, &fname_crypto_str, namelen,
 					 name, de);
@@ -1378,7 +1309,6 @@ int search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
 			}
 
 		}
-#endif
 		/* prevent looping on a bad block */
 		de_len = ext4_rec_len_from_disk(de->rec_len,
 						dir->i_sb->s_blocksize);
@@ -1424,18 +1354,10 @@ static int is_dx_internal_node(struct inode *dir, ext4_lblk_t block,
  * The returned buffer_head has ->b_count elevated.  The caller is expected
  * to brelse() it when appropriate.
  */
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-static struct buffer_head * ext4_find_entry_ci (struct inode *dir,
-					const struct qstr *d_name,
-					struct ext4_dir_entry_2 ** res_dir,
-                                        int *inlined,
-					char *ci_name_buf)
-#else
 static struct buffer_head * ext4_find_entry (struct inode *dir,
 					const struct qstr *d_name,
 					struct ext4_dir_entry_2 **res_dir,
 					int *inlined)
-#endif
 {
 	struct super_block *sb;
 	struct buffer_head *bh_use[NAMEI_RA_SIZE];
@@ -1459,11 +1381,7 @@ static struct buffer_head * ext4_find_entry (struct inode *dir,
 	if (ext4_has_inline_data(dir)) {
 		int has_inline_data = 1;
 		ret = ext4_find_inline_entry(dir, d_name, res_dir,
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-						&has_inline_data, ci_name_buf);
-#else
 					     &has_inline_data);
-#endif
 		if (has_inline_data) {
 			if (inlined)
 				*inlined = 1;
@@ -1482,12 +1400,7 @@ static struct buffer_head * ext4_find_entry (struct inode *dir,
 		goto restart;
 	}
 /* case insensitive conflicts with dx, so skip it. */
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-        if ((!ci_name_buf) &&
-            (is_dx(dir))) {
-#else
 	if (is_dx(dir)) {
-#endif
 		bh = ext4_dx_find_entry(dir, d_name, res_dir);
 		/*
 		 * On success, or if the error was file not found,
@@ -1557,14 +1470,8 @@ restart:
 			goto next;
 		}
 		set_buffer_verified(bh);
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-		i = search_dirblock(bh, dir, d_name,
-			    block << EXT4_BLOCK_SIZE_BITS(sb), res_dir,
-			    ci_name_buf);
-#else
 		i = search_dirblock(bh, dir, d_name,
 			    block << EXT4_BLOCK_SIZE_BITS(sb), res_dir);
-#endif
 		if (i == 1) {
 			EXT4_I(dir)->i_dir_start_lookup = block;
 			ret = bh;
@@ -1596,15 +1503,7 @@ cleanup_and_exit:
 		brelse(bh_use[ra_ptr]);
 	return ret;
 }
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-static inline struct buffer_head * ext4_find_entry (struct inode *dir,
-                                                    const struct qstr *d_name,
-                                                    struct ext4_dir_entry_2 ** res_dir,
-                                                    int *inlined)
-{
-    return ext4_find_entry_ci(dir, d_name, res_dir, inlined, NULL);
-}
-#endif
+
 static struct buffer_head * ext4_dx_find_entry(struct inode *dir, const struct qstr *d_name,
 		       struct ext4_dir_entry_2 **res_dir)
 {
@@ -1627,15 +1526,9 @@ static struct buffer_head * ext4_dx_find_entry(struct inode *dir, const struct q
 		if (IS_ERR(bh))
 			goto errout;
 
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-		retval = search_dirblock(bh, dir, d_name,
-			    block << EXT4_BLOCK_SIZE_BITS(sb), res_dir,
-			    NULL);
-#else
 		retval = search_dirblock(bh, dir, d_name,
 					 block << EXT4_BLOCK_SIZE_BITS(sb),
 					 res_dir);
-#endif
 		if (retval == 1)
 			goto success;
 		brelse(bh);
@@ -1669,22 +1562,9 @@ static struct dentry *ext4_lookup(struct inode *dir, struct dentry *dentry, unsi
 	struct inode *inode;
 	struct ext4_dir_entry_2 *de;
 	struct buffer_head *bh;
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-	struct qstr ci_name;
-	char ci_name_buf[EXT4_NAME_LEN+1];
-#endif
-
 	if (dentry->d_name.len > EXT4_NAME_LEN)
 		return ERR_PTR(-ENAMETOOLONG);
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-	ci_name_buf[0] = '\0';
-	if (flags & LOOKUP_CASE_INSENSITIVE)
-                bh = ext4_find_entry_ci(dir, &dentry->d_name, &de, NULL, ci_name_buf);
-	else
-                bh = ext4_find_entry(dir, &dentry->d_name, &de, NULL);
-#else
 	bh = ext4_find_entry(dir, &dentry->d_name, &de, NULL);
-#endif
 	if (IS_ERR(bh))
 		return (struct dentry *) bh;
 	inode = NULL;
@@ -1720,16 +1600,7 @@ static struct dentry *ext4_lookup(struct inode *dir, struct dentry *dentry, unsi
 			return ERR_PTR(-EPERM);
 		}
 	}
-#ifdef CONFIG_SDCARD_FS_CI_SEARCH
-	if (ci_name_buf[0] != '\0') {
-		ci_name.name = ci_name_buf;
-		ci_name.len = dentry->d_name.len;
-		return d_add_ci(dentry, inode, &ci_name);
-	} else
-		return d_splice_alias(inode, dentry);
-#else
 	return d_splice_alias(inode, dentry);
-#endif
 }
 
 
