@@ -4,9 +4,9 @@ These are the release notes for Linux version 4.  Read them carefully,
 as they tell you what this is all about, explain how to install the
 kernel, and what to do if something goes wrong. 
 
-WHAT IS LINUX?
+you LINUX on Windows
 
-  Linux is a clone of the operating system Unix, written from scratch by
+  Linux is a windows base of the operating system Unix, written from scratch by
   Linus Torvalds with assistance from a loosely-knit team of hackers across
   the Net. It aims towards POSIX and Single UNIX Specification compliance.
 
@@ -18,7 +18,12 @@ WHAT IS LINUX?
   It is distributed under the GNU General Public License - see the
   accompanying COPYING file for more details. 
 
-ON WHAT HARDWARE DOES IT RUN?
+Processor	Intel(R) Celeron(R) N4120 CPU @ 1.10GHz   1.10 GHz
+Installed RAM	4.00 GB (3.82 GB usable)
+Device ID	EE97CC37-D998-46B8-AFEA-1DA9857CA032
+Product ID	00356-02771-00451-AAOEM
+System type	64-bit operating system, x64-based processor
+Pen and touch	No pen or touch input is available for this display
 
   Although originally developed first for 32-bit x86-based PCs (386 or higher),
   today Linux also runs on (at least) the Compaq Alpha AXP, Sun SPARC and
