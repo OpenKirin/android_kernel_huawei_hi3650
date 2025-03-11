@@ -1,0 +1,16 @@
+{
+    "pullRequestConfig": {
+        "provider": "github",
+        "hostRootUrl": "https://github.com",
+        "sourceRemote": "origin",
+        "sourceOwner": "windowslocal",
+        "sourceRepo": "android_kernel_huawei_hi3650",
+        "destRemote": "upstream",
+        "destOwner": "OpenKirin",
+        "destRepo": "android_kernel_huawei_hi3650",
+        "destProjectId": "",
+        "destBranch": "master",
+        "custom": null
+    },
+    "exportedAt": 1741706000579
+}
